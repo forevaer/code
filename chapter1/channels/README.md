@@ -24,6 +24,16 @@ for {
     fmt.Println("forever")
 }
 ```
+- 遍历
+```go
+func main() {
+	arr := []int{1, 2, 3, 4, 5}
+	for index, data := range arr {
+		fmt.Printf("%d : %d \n", index, data)
+	}
+}
+```
+[例子](./note/learn_for.go)
  ``channel``
  ---
 - ``create``

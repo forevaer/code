@@ -1,16 +1,16 @@
 package search
 
-// defaultMatcher implements the default matcher.
+// 默认匹配器
 type defaultMatcher struct {
 }
 
-// init registers the default matcher with the program.
+// 初始化时自定注册
 func init() {
 	var matcher defaultMatcher
 	Register("default", matcher)
 }
 
-// Search implements the behavior for the default matcher.
+// 默认返回
 func (m defaultMatcher) Search(feed *Feed, searchTerm string) ([]*Result, error) {
 	return nil, nil
 }
