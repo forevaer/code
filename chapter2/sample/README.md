@@ -13,7 +13,7 @@
     └── search.go
 
 ```
-# [main](./main.go)
+# [main](./main.md)
 
 # [data](./data)
 # [matchers](./matchers)
