@@ -1,7 +1,5 @@
-知识点总结
-===
-
-## ``for``
+``for``
+ ---
  - 循环
  ```go
 for index := 0; index < 10; index++ {
@@ -26,7 +24,8 @@ for {
     fmt.Println("forever")
 }
 ```
-## ``channel``
+ ``channel``
+ ---
 - ``create``
 ```go
 ch := make(chan int)
@@ -46,7 +45,8 @@ ch <- obj
 read := <-ch
 ```
 这会引起阻塞，具体后续讨论
-# ``goroutine``
+``goroutine``
+---
 ```go
 go printer(c)
 ```
@@ -54,3 +54,15 @@ go printer(c)
 相较于其他语言来说
 1. 天然支持并发，无需为维护线程池一类的辅助操作花费心思
 2. 协程体量小，可轻松开辟上百万，消耗资源低
+
+同步组
+---
+```go
+func mian(){
+    var wg sync.WaitGroup
+    wg.Add(1)   //计数加
+    wg.Done()   //计数减1， Add(-1  )
+    wg.Wait()   //阻塞，直到计数为0
+}
+```
+常用于协程间控制

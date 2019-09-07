@@ -8,14 +8,14 @@ import (
 	"github.com/goinaction/code/chapter2/sample/search"
 )
 
-// init is called prior to main.
+// 初始化加载
 func init() {
-	// Change the device for logging to stdout.
+	// 设置日志输出
 	log.SetOutput(os.Stdout)
 }
 
-// main is the entry point for the program.
+// 主函数入口
 func main() {
-	// Perform the search for the specified term.
+	// 函数运行
 	search.Run("president")
 }

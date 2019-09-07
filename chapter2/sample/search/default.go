@@ -1,7 +1,8 @@
 package search
 
 // defaultMatcher implements the default matcher.
-type defaultMatcher struct{}
+type defaultMatcher struct {
+}
 
 // init registers the default matcher with the program.
 func init() {
