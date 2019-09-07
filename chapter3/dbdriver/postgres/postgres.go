@@ -6,11 +6,10 @@ import (
 	"errors"
 )
 
-// PostgresDriver provides our implementation for the
-// sql package.
+// bean
 type PostgresDriver struct{}
 
-// Open provides a connection to the database.
+// connect
 func (dr PostgresDriver) Open(string) (driver.Conn, error) {
 	return nil, errors.New("Unimplemented")
 }
