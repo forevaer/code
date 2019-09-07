@@ -35,7 +35,7 @@ func main() {
 	println(string(bs))
 }
 ```
-可以查看[小例子](./../note/learn_file.go)了解一下
+可以查看[demo](./../note/learn_file.go)了解一下
 
 ``json``
 ---
@@ -45,4 +45,4 @@ _ = json.Unmarshal(bs, &another) // 字节解析对象
 ```
 序列化  ：对象直接转化成字节，这个使用上面和其他的面向对象都一致<br>
 反序列化：``go``中含有大量的引用传递，计算的结果不一定会返回，可能要求你指针传入对象，通过指针直接修改进行接收
-详细请查看[小例子](./../note/learn_json.go)了解一下
+详细请查看[demo](./../note/learn_json.go)了解一下

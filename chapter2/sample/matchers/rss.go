@@ -75,7 +75,6 @@ func (m rssMatcher) Search(feed *search.Feed, searchTerm string) ([]*search.Resu
 	if err != nil {
 		return nil, err
 	}
-
 	for _, channelItem := range document.Channel.Item {
 		// 正则title
 		matched, err := regexp.MatchString(searchTerm, channelItem.Title)

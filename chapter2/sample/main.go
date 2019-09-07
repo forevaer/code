@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "code/chapter2/sample/matchers"
 	"code/chapter2/sample/search"
 	"log"
 	"os"
@@ -10,6 +11,7 @@ import (
 func init() {
 	// 设置日志输出
 	log.SetOutput(os.Stdout)
+	log.SetFlags(log.Llongfile)
 }
 
 // 主函数入口

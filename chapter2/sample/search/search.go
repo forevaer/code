@@ -5,63 +5,57 @@ import (
 	"sync"
 )
 
-// A map of registered matchers for searching.
+// 匹配器容器
 var matchers = make(map[string]Matcher)
 
-// Run performs the search logic.
+// 直接匹配
 func Run(searchTerm string) {
-	// Retrieve the list of feeds to search through.
+	// 读取文件
 	feeds, err := RetrieveFeeds()
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// Create an unbuffered channel to receive match results to display.
+	// 结果合集
 	results := make(chan *Result)
-
-	// Setup a wait group so we can process all the feeds.
+	// 调度
 	var waitGroup sync.WaitGroup
-
-	// Set the number of goroutines we need to wait for while
-	// they process the individual feeds.
+	// 一次性直接添加任务
 	waitGroup.Add(len(feeds))
-
-	// Launch a goroutine for each feed to find the results.
+	// 异步遍历
 	for _, feed := range feeds {
-		// Retrieve a matcher for the search.
+		// 查找匹配器
 		matcher, exists := matchers[feed.Type]
+		// 默认匹配器
 		if !exists {
 			matcher = matchers["default"]
 		}
-
-		// Launch the goroutine to perform the search.
+		// 匹配动作
 		go func(matcher Matcher, feed *Feed) {
+			// 匹配
 			Match(matcher, feed, searchTerm, results)
+			// 通知
 			waitGroup.Done()
 		}(matcher, feed)
 	}
-
-	// Launch a goroutine to monitor when all the work is done.
+	// 异步
 	go func() {
-		// Wait for everything to be processed.
+		// 等待全部完成
 		waitGroup.Wait()
 
-		// Close the channel to signal to the Display
-		// function that we can exit the program.
+		// 完成以后关闭通道
 		close(results)
 	}()
 
-	// Start displaying results as they are available and
-	// return after the final result is displayed.
+	// 显示结果
 	Display(results)
 }
 
-// Register is called to register a matcher for use by the program.
+// 注册匹配器
 func Register(feedType string, matcher Matcher) {
+	// 不允许重名注册
 	if _, exists := matchers[feedType]; exists {
 		log.Fatalln(feedType, "Matcher already registered")
 	}
-
 	log.Println("Register", feedType, "matcher")
 	matchers[feedType] = matcher
 }
