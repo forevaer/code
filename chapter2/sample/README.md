@@ -2,15 +2,15 @@
 ===
 ```text
 ├── data
-│   └── data.json
-├── main.go
+│   └── data.json   // 数据
+├── main.go         // 程序入口
 ├── matchers
-│   └── rss.go
+│   └── rss.go      // rss匹配器
 └── search
-    ├── default.go
-    ├── feed.go
-    ├── match.go
-    └── search.go
+    ├── default.go  // 默认匹配器
+    ├── feed.go     // 文件解析
+    ├── match.go    // 匹配过程
+    └── search.go   // 程序调度
 
 ```
 # [main](./main.md)
