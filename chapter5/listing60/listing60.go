@@ -6,41 +6,38 @@ import (
 	"fmt"
 )
 
-// notifier is an interface that defined notification
-// type behavior.
+// 接口
 type notifier interface {
 	notify()
 }
 
-// user defines a user in the program.
+// 对象
 type user struct {
 	name  string
 	email string
 }
 
-// notify implements a method that can be called via
-// a value of type user.
+// 实现
 func (u *user) notify() {
 	fmt.Printf("Sending user email to %s<%s>\n",
 		u.name,
 		u.email)
 }
 
-// admin represents an admin user with privileges.
+// 对象
 type admin struct {
 	user
 	level string
 }
 
-// notify implements a method that can be called via
-// a value of type Admin.
+// 实现
 func (a *admin) notify() {
 	fmt.Printf("Sending admin email to %s<%s>\n",
 		a.name,
 		a.email)
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
 	// Create an admin user.
 	ad := admin{
@@ -51,15 +48,13 @@ func main() {
 		level: "super",
 	}
 
-	// Send the admin user a notification.
-	// The embedded inner type's implementation of the
-	// interface is NOT "promoted" to the outer type.
+	// 首先执行自身，如果找不到方法，搜索扩展
 	sendNotification(&ad)
 
-	// We can access the inner type's method directly.
+	// 执行
 	ad.user.notify()
 
-	// The inner type's method is NOT promoted.
+	// 自身方法
 	ad.notify()
 }
 

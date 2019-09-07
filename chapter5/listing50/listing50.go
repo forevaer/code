@@ -6,27 +6,26 @@ import (
 	"fmt"
 )
 
-// user defines a user in the program.
+// user
 type user struct {
 	name  string
 	email string
 }
 
-// notify implements a method that can be called via
-// a value of type user.
+// 实现
 func (u *user) notify() {
 	fmt.Printf("Sending user email to %s<%s>\n",
 		u.name,
 		u.email)
 }
 
-// admin represents an admin user with privileges.
+// 扩展
 type admin struct {
 	user  // Embedded Type
 	level string
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
 	// Create an admin user.
 	ad := admin{
@@ -37,9 +36,9 @@ func main() {
 		level: "super",
 	}
 
-	// We can access the inner type's method directly.
+	// 内部对象调用
 	ad.user.notify()
 
-	// The inner type's method is promoted.
+	// 即是内部对象，也是自身属性
 	ad.notify()
 }

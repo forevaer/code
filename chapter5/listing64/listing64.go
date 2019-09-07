@@ -4,19 +4,15 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/goinaction/code/chapter5/listing64/counters"
 )
 
-// main is the entry point for the application.
-func main() {
-	// Create a variable of the unexported type and initialize
-	// the value to 10.
-	counter := counters.alertCounter(10)
+// 别名
+type alertCounter int
 
-	// ./listing64.go:15: cannot refer to unexported name
-	//                                         counters.alertCounter
-	// ./listing64.go:15: undefined: counters.alertCounter
+// 入口
+func main() {
+	// 方法依旧
+	counter := alertCounter(10)
 
 	fmt.Printf("Counter: %d\n", counter)
 }

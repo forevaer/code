@@ -1,48 +1,42 @@
-// Sample program to show how to declare methods and how the Go
-// compiler supports them.
 package main
 
 import (
 	"fmt"
 )
 
-// user defines a user in the program.
+// 结构定义
 type user struct {
 	name  string
 	email string
 }
 
-// notify implements a method with a value receiver.
+// 输出信息
 func (u user) notify() {
 	fmt.Printf("Sending User Email To %s<%s>\n",
 		u.name,
 		u.email)
 }
 
-// changeEmail implements a method with a pointer receiver.
+// 替换属性
 func (u *user) changeEmail(email string) {
 	u.email = email
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
-	// Values of type user can be used to call methods
-	// declared with a value receiver.
+	// 创建并打印
 	bill := user{"Bill", "bill@email.com"}
 	bill.notify()
 
-	// Pointers of type user can also be used to call methods
-	// declared with a value receiver.
+	// 创建并打印
 	lisa := &user{"Lisa", "lisa@email.com"}
 	lisa.notify()
 
-	// Values of type user can be used to call methods
-	// declared with a pointer receiver.
+	// 修改并打印
 	bill.changeEmail("bill@newdomain.com")
 	bill.notify()
 
-	// Pointers of type user can be used to call methods
-	// declared with a pointer receiver.
+	// 修改并打印
 	lisa.changeEmail("lisa@newdomain.com")
 	lisa.notify()
 }

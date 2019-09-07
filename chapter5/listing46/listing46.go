@@ -4,18 +4,15 @@ package main
 
 import "fmt"
 
-// duration is a type with a base type of int.
+// 类型重命名
 type duration int
 
-// format pretty-prints the duration value.
+// 添加方法
 func (d *duration) pretty() string {
 	return fmt.Sprintf("Duration: %d", *d)
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
 	duration(42).pretty()
-
-	// ./listing46.go:17: cannot call pointer method on duration(42)
-	// ./listing46.go:17: cannot take the address of duration(42)
 }

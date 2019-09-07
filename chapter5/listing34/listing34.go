@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-// init is called before main.
+// 必须两个参数
 func init() {
 	if len(os.Args) != 2 {
 		fmt.Println("Usage: ./example2 <url>")
@@ -17,17 +17,16 @@ func init() {
 	}
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
-	// Get a response from the web server.
+	// 第一个参数为网址
 	r, err := http.Get(os.Args[1])
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	// Copies from the Body to Stdout.
-	io.Copy(os.Stdout, r.Body)
+	// 输乳流对接少输出流，直接输出
+	_, _ = io.Copy(os.Stdout, r.Body)
 	if err := r.Body.Close(); err != nil {
 		fmt.Println(err)
 	}

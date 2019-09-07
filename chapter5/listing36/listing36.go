@@ -5,40 +5,34 @@ import (
 	"fmt"
 )
 
-// notifier is an interface that defined notification
-// type behavior.
+//  接口定义
 type notifier interface {
 	notify()
 }
 
-// user defines a user in the program.
+// 用户结构
 type user struct {
 	name  string
 	email string
 }
 
-// notify implements a method with a pointer receiver.
+// 方法实现
 func (u *user) notify() {
 	fmt.Printf("Sending user email to %s<%s>\n",
 		u.name,
 		u.email)
 }
 
-// main is the entry point for the application.
+// 入口
 func main() {
-	// Create a value of type User and send a notification.
+	// instance
 	u := user{"Bill", "bill@email.com"}
-
-	sendNotification(u)
-
-	// ./listing36.go:32: cannot use u (type user) as type
-	//                     notifier in argument to sendNotification:
-	//   user does not implement notifier
-	//                          (notify method has pointer receiver)
+	// process
+	// 接收接口时使用指针比较好
+	sendNotification(&u)
 }
 
-// sendNotification accepts values that implement the notifier
-// interface and sends notifications.
+// 外部方法处理
 func sendNotification(n notifier) {
 	n.notify()
 }
