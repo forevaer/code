@@ -1,11 +1,9 @@
 package main
 
 import (
+	"code/chapter2/sample/search"
 	"log"
 	"os"
-
-	_ "github.com/goinaction/code/chapter2/sample/matchers"
-	"github.com/goinaction/code/chapter2/sample/search"
 )
 
 // 初始化加载
