@@ -1,5 +1,3 @@
-// Package search : seachers.go contains all the different implementations
-// for the existing searchers.
 package search
 
 import (
@@ -8,26 +6,22 @@ import (
 	"time"
 )
 
-// init is called before main.
+// random seed
 func init() {
 	rand.Seed(time.Now().UnixNano())
 }
 
-// Google provides support for Google searches.
+//-----------------------------------------
+// entity
 type google struct{}
 
-// Search implements the Searcher interface. It performs a search
-// against Google.
+//
 func (g google) Search(term string, results chan<- []Result) {
 	log.Printf("Google : Search : Started : search term[%s]\n", term)
-
-	// Slice for the results.
 	var r []Result
 
-	// Simulate an amount of time for the search.
 	time.Sleep(time.Millisecond * time.Duration(rand.Int63n(900)))
 
-	// Simulate a result for the search.
 	r = append(r, Result{
 		Engine:      "Google",
 		Title:       "The Go Programming Language",
@@ -39,18 +33,15 @@ func (g google) Search(term string, results chan<- []Result) {
 	results <- r
 }
 
-// Bing provides support for Bing searches.
+//-----------------------------------------
+//
 type bing struct{}
 
-// Search implements the Searcher interface. It performs a search
-// against Bing.
 func (b bing) Search(term string, results chan<- []Result) {
 	log.Printf("Bing : Search : Started : search term [%s]\n", term)
 
-	// Slice for the results.
 	var r []Result
 
-	// Simulate an amount of time for the search.
 	time.Sleep(time.Millisecond * time.Duration(rand.Int63n(900)))
 
 	// Simulate a result for the search.
@@ -65,7 +56,7 @@ func (b bing) Search(term string, results chan<- []Result) {
 	results <- r
 }
 
-// Yahoo provides support for Yahoo searches.
+//----------------------------------------- support for Yahoo searches.
 type yahoo struct{}
 
 // Search implements the Searcher interface. It performs a search

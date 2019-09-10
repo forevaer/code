@@ -1,5 +1,3 @@
-// Example is provided with help by Gabriel Aszalos.
-// Package runner manages the running and lifetime of a process.
 package runner
 
 import (
@@ -9,32 +7,24 @@ import (
 	"time"
 )
 
-// Runner runs a set of tasks within a given timeout and can be
-// shut down on an operating system interrupt.
 type Runner struct {
-	// interrupt channel reports a signal from the
-	// operating system.
+	// interrupt
 	interrupt chan os.Signal
-
-	// complete channel reports that processing is done.
+	// error
 	complete chan error
-
-	// timeout reports that time has run out.
+	// timeout
 	timeout <-chan time.Time
-
-	// tasks holds a set of functions that are executed
-	// synchronously in index order.
+	// tasks
 	tasks []func(int)
 }
 
-// ErrTimeout is returned when a value is received on the timeout channel.
-var ErrTimeout = errors.New("received timeout")
+var (
+	ErrTimeout   = errors.New("received timeout")
+	ErrInterrupt = errors.New("received interrupt")
+)
 
-// ErrInterrupt is returned when an event from the OS is received.
-var ErrInterrupt = errors.New("received interrupt")
-
-// New returns a new ready-to-use Runner.
 func New(d time.Duration) *Runner {
+	// just set attributes
 	return &Runner{
 		interrupt: make(chan os.Signal, 1),
 		complete:  make(chan error),
@@ -42,58 +32,52 @@ func New(d time.Duration) *Runner {
 	}
 }
 
-// Add attaches tasks to the Runner. A task is a function that
-// takes an int ID.
+// add tasks
 func (r *Runner) Add(tasks ...func(int)) {
 	r.tasks = append(r.tasks, tasks...)
 }
 
-// Start runs all tasks and monitors channel events.
 func (r *Runner) Start() error {
-	// We want to receive all interrupt based signals.
+	// connect two signal
 	signal.Notify(r.interrupt, os.Interrupt)
 
-	// Run the different tasks on a different goroutine.
 	go func() {
+		// listen goroutine
 		r.complete <- r.run()
 	}()
-
+	// just listen once
 	select {
-	// Signaled when processing is done.
+	// complete
 	case err := <-r.complete:
 		return err
-
-	// Signaled when we run out of time.
+	// timeout
 	case <-r.timeout:
 		return ErrTimeout
 	}
 }
 
-// run executes each registered task.
+// run
 func (r *Runner) run() error {
+	// listen
 	for id, task := range r.tasks {
-		// Check for an interrupt signal from the OS.
+		// error , and return
 		if r.gotInterrupt() {
 			return ErrInterrupt
 		}
-
-		// Execute the registered task.
+		// run
 		task(id)
 	}
-
 	return nil
 }
 
-// gotInterrupt verifies if the interrupt signal has been issued.
 func (r *Runner) gotInterrupt() bool {
+	// check
 	select {
-	// Signaled when an interrupt event is sent.
+	// interrupt
 	case <-r.interrupt:
-		// Stop receiving any further signals.
 		signal.Stop(r.interrupt)
 		return true
 
-	// Continue running as normal.
 	default:
 		return false
 	}
