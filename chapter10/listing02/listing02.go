@@ -1,4 +1,3 @@
-// Sample program demonstrating decoupling with interfaces.
 package main
 
 import (

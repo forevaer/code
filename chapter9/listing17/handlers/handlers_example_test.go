@@ -9,7 +9,6 @@ import (
 	"net/http/httptest"
 )
 
-// ExampleSendJSON provides a basic example.
 func ExampleSendJSON() {
 	r, _ := http.NewRequest("GET", "/sendjson", nil)
 	w := httptest.NewRecorder()
@@ -25,6 +24,4 @@ func ExampleSendJSON() {
 	}
 
 	fmt.Println(u)
-	// Output:
-	// {Bill bill@ardanstudios.com}
 }

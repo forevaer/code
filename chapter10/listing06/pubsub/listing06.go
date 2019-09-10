@@ -1,10 +1,4 @@
-// Sample program to show how you can personally mock concrete types when
-// you need to for your own packages or tests.
 package main
-
-import (
-	"github.com/goinaction/code/chapter10/listing06/pubsub"
-)
 
 // publisher is an interface to allow this package to mock the
 // pubsub package support.

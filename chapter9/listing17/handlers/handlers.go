@@ -1,4 +1,3 @@
-// Package handlers provides the endpoints for the web service.
 package handlers
 
 import (
@@ -6,7 +5,6 @@ import (
 	"net/http"
 )
 
-// Routes sets the routes for the web service.
 func Routes() {
 	http.HandleFunc("/sendjson", SendJSON)
 }

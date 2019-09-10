@@ -1,24 +1,21 @@
 // Sample test to show how to test the execution of an
 // internal endpoint.
-package handlers_test
+package handlers
 
 import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/goinaction/code/chapter9/listing17/handlers"
 )
 
 const checkMark = "\u2713"
 const ballotX = "\u2717"
 
 func init() {
-	handlers.Routes()
+	Routes()
 }
 
-// TestSendJSON testing the sendjson internal endpoint.
 func TestSendJSON(t *testing.T) {
 	t.Log("Given the need to test the SendJSON endpoint.")
 	{

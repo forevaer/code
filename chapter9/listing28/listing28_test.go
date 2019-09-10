@@ -1,6 +1,3 @@
-// Sample benchmarks to test which function is better for converting
-// an integer into a string. First using the fmt.Sprintf function,
-// then the strconv.FormatInt function and then strconv.Itoa.
 package listing05_test
 
 import (
@@ -9,8 +6,6 @@ import (
 	"testing"
 )
 
-// BenchmarkSprintf provides performance numbers for the
-// fmt.Sprintf function.
 func BenchmarkSprintf(b *testing.B) {
 	number := 10
 
@@ -21,8 +16,6 @@ func BenchmarkSprintf(b *testing.B) {
 	}
 }
 
-// BenchmarkFormat provides performance numbers for the
-// strconv.FormatInt function.
 func BenchmarkFormat(b *testing.B) {
 	number := int64(10)
 

@@ -49,8 +49,8 @@ func main() {
 
 	// Declare variables of the MoveLocker and Mover interfaces set to their
 	// zero value.
-	var ml MoveLocker
-	var m Mover
+	var ml interface{}
+	var m interface{}
 
 	// Create a value of type bike and assign the value to the MoveLocker
 	// interface value.
