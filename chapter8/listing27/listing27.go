@@ -7,7 +7,6 @@ import (
 	"log"
 )
 
-// Contact represents our JSON string.
 type Contact struct {
 	Name    string `json:"name"`
 	Title   string `json:"title"`
@@ -17,7 +16,6 @@ type Contact struct {
 	} `json:"contact"`
 }
 
-// JSON contains a sample string to unmarshal.
 var JSON = `{
 	"name": "Gopher",
 	"title": "programmer",
@@ -28,7 +26,6 @@ var JSON = `{
 }`
 
 func main() {
-	// Unmarshal the JSON string into our variable.
 	var c Contact
 	err := json.Unmarshal([]byte(JSON), &c)
 	if err != nil {

@@ -1,4 +1,3 @@
-// This sample program demonstrates how to use the base log package.
 package main
 
 import (
@@ -6,6 +5,7 @@ import (
 )
 
 func init() {
+	// prefix
 	log.SetPrefix("TRACE: ")
 	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)
 }

@@ -1,5 +1,4 @@
 // This sample program demonstrates how to decode a JSON response
-// using the json package and NewDecoder function.
 package main
 
 import (
@@ -10,7 +9,6 @@ import (
 )
 
 type (
-	// gResult maps to the result document received from the search.
 	gResult struct {
 		GsearchResultClass string `json:"GsearchResultClass"`
 		UnescapedURL       string `json:"unescapedUrl"`
