@@ -1,5 +1,3 @@
-// This sample program demonstrates how to create race
-// conditions in our programs. We don't want to do this.
 package main
 
 import (
@@ -9,43 +7,41 @@ import (
 )
 
 var (
-	// counter is a variable incremented by all goroutines.
+	// count
 	counter int
-
-	// wg is used to wait for the program to finish.
+	// wg
 	wg sync.WaitGroup
 )
 
-// main is the entry point for all Go programs.
 func main() {
-	// Add a count of two, one for each goroutine.
+	// double
 	wg.Add(2)
 
-	// Create two goroutines.
+	// first
 	go incCounter(1)
+	// second
 	go incCounter(2)
 
-	// Wait for the goroutines to finish.
+	// wait
 	wg.Wait()
 	fmt.Println("Final Counter:", counter)
 }
 
-// incCounter increments the package level counter variable.
 func incCounter(id int) {
-	// Schedule the call to Done to tell main we are done.
+	// done
 	defer wg.Done()
 
 	for count := 0; count < 2; count++ {
-		// Capture the value of Counter.
+		// save counter to value
 		value := counter
-
-		// Yield the thread and be placed back in queue.
+		fmt.Printf("%d : %d : %d\n", id, count, value)
+		// yield
 		runtime.Gosched()
-
-		// Increment our local value of Counter.
+		fmt.Printf("%d : %d : %d\n", id, count, value)
+		// plus
 		value++
-
-		// Store the value back into Counter.
+		// counter update
 		counter = value
 	}
+	// two goroutines use common resource counter
 }

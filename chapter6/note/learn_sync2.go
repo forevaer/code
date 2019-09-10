@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-func show(prefix string, wg *sync.WaitGroup) {
+func single(prefix string, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for index := 0; index < 5; index++ {
 		fmt.Println(prefix, index)
@@ -15,7 +15,8 @@ func show(prefix string, wg *sync.WaitGroup) {
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(2)
-	go show("a", &wg)
-	go show("b", &wg)
+	go single("a", &wg)
+	go single("b", &wg)
 	wg.Wait()
+	fmt.Println("over")
 }

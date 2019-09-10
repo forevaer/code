@@ -1,5 +1,3 @@
-// This sample program demonstrates how to create goroutines and
-// how the goroutine scheduler behaves with two logical processor.
 package main
 
 import (
@@ -8,37 +6,28 @@ import (
 	"sync"
 )
 
-// main is the entry point for all Go programs.
 func main() {
-	// Allocate two logical processors for the scheduler to use.
 	runtime.GOMAXPROCS(2)
-
-	// wg is used to wait for the program to finish.
-	// Add a count of two, one for each goroutine.
+	// wg
 	var wg sync.WaitGroup
+	// double goroutines
 	wg.Add(2)
 
 	fmt.Println("Start Goroutines")
-
-	// Declare an anonymous function and create a goroutine.
+	// first
 	go func() {
-		// Schedule the call to Done to tell main we are done.
 		defer wg.Done()
-
-		// Display the alphabet three times.
+		// lowerCase
 		for count := 0; count < 3; count++ {
 			for char := 'a'; char < 'a'+26; char++ {
 				fmt.Printf("%c ", char)
 			}
 		}
 	}()
-
-	// Declare an anonymous function and create a goroutine.
+	// second
 	go func() {
-		// Schedule the call to Done to tell main we are done.
 		defer wg.Done()
-
-		// Display the alphabet three times.
+		// upperCase
 		for count := 0; count < 3; count++ {
 			for char := 'A'; char < 'A'+26; char++ {
 				fmt.Printf("%c ", char)
@@ -46,9 +35,7 @@ func main() {
 		}
 	}()
 
-	// Wait for the goroutines to finish.
 	fmt.Println("Waiting To Finish")
 	wg.Wait()
-
 	fmt.Println("\nTerminating Program")
 }

@@ -1,5 +1,3 @@
-// This sample program demonstrates how to use an unbuffered
-// channel to simulate a game of tennis between two goroutines.
 package main
 
 import (
@@ -9,57 +7,50 @@ import (
 	"time"
 )
 
-// wg is used to wait for the program to finish.
 var wg sync.WaitGroup
 
 func init() {
+	// set random seed
 	rand.Seed(time.Now().UnixNano())
 }
 
-// main is the entry point for all Go programs.
 func main() {
-	// Create an unbuffered channel.
 	court := make(chan int)
 
-	// Add a count of two, one for each goroutine.
 	wg.Add(2)
 
-	// Launch two players.
 	go player("Nadal", court)
 	go player("Djokovic", court)
 
-	// Start the set.
 	court <- 1
 
-	// Wait for the game to finish.
 	wg.Wait()
 }
 
-// player simulates a person playing the game of tennis.
 func player(name string, court chan int) {
-	// Schedule the call to Done to tell main we are done.
+	// 结束
 	defer wg.Done()
 
 	for {
-		// Wait for the ball to be hit back to us.
+		// 接收到
 		ball, ok := <-court
 		if !ok {
-			// If the channel was closed we won.
+			// 关闭，对方认输
 			fmt.Printf("Player %s Won\n", name)
 			return
 		}
 
-		// Pick a random number and see if we miss the ball.
+		// 回应一个数
 		n := rand.Intn(100)
+		// 特定情况接不到球
 		if n%13 == 0 {
 			fmt.Printf("Player %s Missed\n", name)
-
-			// Close the channel to signal we lost.
+			// 接不到球就认输，关闭通道
 			close(court)
 			return
 		}
 
-		// Display and then increment the hit count by one.
+		// 回球成功
 		fmt.Printf("Player %s Hit %d\n", name, ball)
 		ball++
 
